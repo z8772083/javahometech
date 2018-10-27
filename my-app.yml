@@ -1,0 +1,18 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: sample-k8s-deployment-2
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: sample-k8s-app-2
+    spec:
+      containers:
+      - name: sample-k8s-app-container-2
+        image: harbor.tankme.top/dev/my-app:0.3
+        ports:
+        - containerPort: 8080
+      imagePullSecrets:
+      - name: harbor-secret-tankme
