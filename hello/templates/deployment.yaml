@@ -38,6 +38,8 @@ spec:
               path: /
               port: http
           resources:
+      imagePullSecrets:
+      - name: {{ .Values.image.imagepullsecrets }}
 {{ toYaml .Values.resources | indent 12 }}
     {{- with .Values.nodeSelector }}
       nodeSelector:
