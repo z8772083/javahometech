@@ -8,6 +8,7 @@ image:
   repository: nginx
   tag: stable
   pullPolicy: IfNotPresent
+  imagepullsecrets: harbor-secret-tankme
 
 nameOverride: ""
 fullnameOverride: ""
