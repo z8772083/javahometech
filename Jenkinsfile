@@ -20,7 +20,7 @@ node{
    
     stage('Deploy'){
     sh """
-    helm --host ${helm_host} upgrade --install --wait --set image.repository=${repo}/dev/${JOB_NAME},image.tag=${BUILD_NUMBER} hello hello
+    helm --host ${helm_host} upgrade --install --wait --timeout 20 --set image.repository=${repo}/dev/${JOB_NAME},image.tag=${BUILD_NUMBER} hello hello
     """
     }
            
