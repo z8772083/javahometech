@@ -21,7 +21,7 @@ node{
    
     stage('Deploy'){
     sh """
-    helm --host ${helm_host} upgrade --install --wait --set image.repository=${repository},image.tag=${commitId} hello hello
+    helm --host ${helm_host} upgrade --install --wait --set image.repository=${Repo}/dev/${JOB_NAME},image.tag=${BUILD_NUMBER} hello hello
     """
     }
            
