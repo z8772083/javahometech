@@ -11,12 +11,11 @@ node{
     }
 
     stage('Build and Push image'){
-        withDockerRegistry(credentialsId: 'docker-hub', url: 'harbor.tankme.top') {
         sh """
         docker build -t harbor.tankme.top/dev/javahometech:01 .
+        docker login harbor.tankme.top -u admin -p ${Docker_hub}
         docker push harbor.tankme.top/dev/javahometech:01
         """
-       }
     }
    
     stage('Deploy'){
