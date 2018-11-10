@@ -12,15 +12,15 @@ node{
 
     stage('Build and Push image'){
         sh """
-        docker build -t ${repo}/dev/${JOB_NAME}:${BUILD_NUMBER} .
+        docker build -t ${repo}/dev/${app}:${BUILD_NUMBER} .
         docker login ${repo} -u admin -p ${Docker_hub}
-        docker push ${repo}/dev/${JOB_NAME}:${BUILD_NUMBER}
+        docker push ${repo}/dev/${app}:${BUILD_NUMBER}
         """
     }
    
     stage('Deploy'){
     sh """
-    helm --host ${helm_host} upgrade --install --wait  --set image.repository=${repo}/dev/${JOB_NAME},image.tag=${BUILD_NUMBER} hello hello
+    helm --host ${helm_host} upgrade --install --wait  --set image.repository=${repo}/dev/${app},image.tag=${BUILD_NUMBER} hello hello
     """
     }
            
