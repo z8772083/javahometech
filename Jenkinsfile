@@ -11,15 +11,16 @@ node{
     }
 
     stage('Build and Push image'){
+        DEF Repo =  harbor.tankme.top
         sh """
-        docker build -t harbor.tankme.top/dev/javahometech:01 .
-        docker login harbor.tankme.top -u admin -p ${Docker_hub}
-        docker push harbor.tankme.top/dev/javahometech:01
+        docker build -t ${Repo}/dev/${JOB_NAME}:${BUILD_NUMBER} .
+        docker login ${Repo} -u admin -p ${Docker_hub}
+        docker push ${Repo}/dev/${JOB_NAME}:${BUILD_NUMBER}
         """
     }
    
     stage('Deploy'){
-    sh 'deploy continue..'
+    sh "deploy continue.."
     }
    
 }
