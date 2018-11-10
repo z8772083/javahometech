@@ -11,7 +11,7 @@ node{
     }
 
     stage('Build and Push image'){
-        DEF Repo =  harbor.tankme.top
+        def Repo =  harbor.tankme.top
         sh """
         docker build -t ${Repo}/dev/${JOB_NAME}:${BUILD_NUMBER} .
         docker login ${Repo} -u admin -p ${Docker_hub}
