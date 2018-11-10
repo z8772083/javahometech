@@ -20,7 +20,7 @@ node{
     }
    
     stage('Deploy'){
-    sh "deploy continue.."
+    sh "echo "deploy continue..""
     }
    
 }
