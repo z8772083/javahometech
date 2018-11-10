@@ -1,23 +1,26 @@
 node{
-   stage('SCM Checkout'){
-     git 'https://github.com/javahometech/my-app'
-   }
-   stage('Compile-Package'){
-      // Get maven home path
-      def mvnHome =  tool name: 'maven-3', type: 'maven'   
-      sh "${mvnHome}/bin/mvn package"
-   }
-   stage('Email Notification'){
-      mail bcc: '', body: '''Hi Welcome to jenkins email alerts
-      Thanks
-      Hari''', cc: '', from: '', replyTo: '', subject: 'Jenkins Job', to: 'hari.kammana@gmail.com'
-   }
-   stage('Slack Notification'){
-       slackSend baseUrl: 'https://hooks.slack.com/services/',
-       channel: '#jenkins-pipeline-demo',
-       color: 'good', 
-       message: 'Welcome to Jenkins, Slack!', 
-       teamDomain: 'javahomecloud',
-       tokenCredentialId: 'slack-demo'
-   }
+   
+    stage('Git Clone From Github'){
+        git branch: 'dev', url: 'https://github.com/z8772083/javahometech.git'
+    }
+   
+    stage('Maven Build'){
+        def MvnHome = tool name: 'maven', type: 'maven'
+        def MvnCmd = "${MvnHome}bin/mvn"
+        sh "${MvnCmd} -Dskiptest clean package"
+    }
+
+    stage('Build and Push image'){
+        withDockerRegistry(credentialsId: 'docker-hub', url: 'harbor.tankme.top') {
+        sh """
+        docker build -t harbor.tankme.top/dev/javahometech:01 .
+        docker push harbor.tankme.top/dev/javahometech:01
+        """
+       }
+    }
+   
+    stage('Deploy'){
+    sh 'deploy continue..'
+    }
+   
 }
