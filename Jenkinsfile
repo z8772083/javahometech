@@ -20,7 +20,10 @@ node{
     }
    
     stage('Deploy'){
-    sh "echo deploy continue.."
+    sh """
+    helm install    ${helm_host}
     }
+    
+    
    
 }
