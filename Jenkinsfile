@@ -1,7 +1,7 @@
 node{
    
     stage('Git Clone From Github'){
-        git branch: 'dev', url: 'https://github.com/z8772083/javahometech.git'
+        git branch: 'master', url: 'https://github.com/z8772083/javahometech.git'
     }
    
     stage('Maven Build'){
